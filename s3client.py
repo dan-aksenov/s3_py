@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 '''
 S3 Testing module.
 Simple python script to connect to radosgw(ceph in my setup). Creating buckets, insert/delete data, list and dump contents.

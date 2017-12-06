@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from s3client import s3connect, buck_list
 
 def main():
