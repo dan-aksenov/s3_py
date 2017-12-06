@@ -1,3 +1,4 @@
+#!//bin/python
 from s3client import s3connect, buck_dump_diff
 import sys
 from getopt import getopt
