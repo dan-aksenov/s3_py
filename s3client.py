@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-S3 Testing module.
-Simple python script to connect to radosgw(ceph in my setup). Creating buckets, insert/delete data, list and dump contents.
+Simple python script to connect to 3s object storage.
+Creating buckets, upload/download/delete/dump files.
 '''
 import boto
 import boto.s3
@@ -52,7 +52,7 @@ def buck_add( buck_name ):
     buck = conn.create_bucket( buck_name )
     return buck;
 
-#Bucket delete function here
+#Bucket delete function to be here.
     
 # Got from https://stackoverflow.com/questions/15085864/how-to-upload-a-file-to-directory-in-s3-bucket-using-boto
 def put_file( buck_name, file_name ):
@@ -63,7 +63,9 @@ def put_file( buck_name, file_name ):
     (file_name, buck)
 
     def percent_cb(complete, total):
-        sys.stdout.write('.')
+        "Internal 'progress bar' function. Move it higher?"
+		
+		sys.stdout.write('.')
         sys.stdout.flush()
 
     k = Key(buck)
@@ -81,7 +83,7 @@ def del_file( buck_name, file_name ):
         
 # Got from http://docs.ceph.com/docs/master/radosgw/s3/python/
 def buck_cont( buck_name ):
-    "View bucket contents. Create bucket if not exists."
+    "View bucket contents."
     
     buck = conn.get_bucket( buck_name )
     for key in buck.list():
@@ -115,17 +117,16 @@ def buck_dump_diff( buck_name, dump_path ):
             key.get_contents_to_filename( dump_path  + key.name )
             dumped = dumped + 1
     print "Dumped new objects: " + str(dumped)
-    print "Skiped existing objects: " + str(skiped)
-        
-if __name__ == '__main__':
-    pass
+    print "Skiped existing objects: " + str(skiped)    
 
-# Access rights.
 # Got from http://boto.cloudhackers.com/en/latest/s3_tut.html
 def set_rights( buck_name , file_name):
-    "Set read rights to file."
+    "Set read rights on file to public."
     
     buck = conn.get_bucket(buck_name)
     #acl = bucket.get_acl()
     #bucket.set_acl('public-read')
-    bucket.set_acl('public-read', file_name)
+    bucket.set_acl('public-read', file_name)	
+	
+if __name__ == '__main__':
+    pass
