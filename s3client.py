@@ -21,7 +21,7 @@ def s3connect( config_file ):
             conn_data = json.load(cfg_file)
     except:
         print "Error: Unable to read config file. "
-        return 1
+        sys.exit(1)
 
     s3gw = conn_data['gateway']   
     access_key = conn_data['access_key']
