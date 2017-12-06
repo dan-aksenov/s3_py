@@ -64,8 +64,8 @@ def put_file( buck_name, file_name ):
 
     def percent_cb(complete, total):
         "Internal 'progress bar' function. Move it higher?"
-		
-		sys.stdout.write('.')
+        
+        sys.stdout.write('.')
         sys.stdout.flush()
 
     k = Key(buck)
@@ -126,7 +126,7 @@ def set_rights( buck_name , file_name):
     buck = conn.get_bucket(buck_name)
     #acl = bucket.get_acl()
     #bucket.set_acl('public-read')
-    bucket.set_acl('public-read', file_name)	
-	
+    bucket.set_acl('public-read', file_name)    
+    
 if __name__ == '__main__':
     pass
