@@ -47,7 +47,7 @@ def buck_list():
         )
 
 def buck_add( buck_name ):
-    "Create bucket"
+    "Create bucket."
     
     buck = conn.create_bucket( buck_name )
     return buck;
@@ -149,7 +149,7 @@ def set_rights( buck_name , file_name):
     buck = conn.get_bucket(buck_name)
     #acl = bucket.get_acl()
     #bucket.set_acl('public-read')
-    bucket.set_acl('public-read', file_name)    
+    buck.set_acl('public-read', file_name)    
     
 if __name__ == '__main__':
     pass
