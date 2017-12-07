@@ -69,10 +69,34 @@ def put_file( buck_name, file_name ):
         sys.stdout.flush()
 
     k = Key(buck)
-    k.key = file_name
+    k.key =  os.path.basename(file_name)
     k.set_contents_from_filename(file_name,
         cb=percent_cb, num_cb=10)
 
+def put_dir( buck_name, dir_name ):
+    for root, dirs, files in os.walk( dir_name ):
+        for filename in files:
+        
+            # construct the full local path
+            local_path = os.path.join(root, filename)
+
+            # construct the full Dropbox path
+            #relative_path = os.path.relpath(local_path, dir_name)
+            
+            # relative_path = os.path.relpath(os.path.join(root, filename))
+
+            #print 'Searching "%s" in "%s"' % (filename, bucket)
+            #try:
+            #    client.head_object(Bucket=bucket, Key=s3_path)
+            #    print "Path found on S3! Skipping %s..." % s3_path
+
+            # try:
+                # client.delete_object(Bucket=bucket, Key=s3_path)
+            # except:
+                # print "Unable to delete %s..." % s3_path
+            #except:
+            put_file( buck_name, local_path )
+        
 def del_file( buck_name, file_name ):
     "Delete file from bucket."
     
