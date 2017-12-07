@@ -74,29 +74,28 @@ def put_file( buck_name, file_name ):
         cb=percent_cb, num_cb=10)
 
 def put_dir( buck_name, dir_name ):
+    buck = conn.get_bucket( buck_name )
+    # list of files in bucket
+    skiped = 0
+    uploaded = 0
+    in_buck = []
+    for key in buck.list():
+        in_buck.append(key.name)
+
     for root, dirs, files in os.walk( dir_name ):
         for filename in files:
-        
             # construct the full local path
             local_path = os.path.join(root, filename)
+            if  filename in in_buck:
+                # print 'File "%s" already in "%s"' % (filename, buck_name)
+                skiped = skiped + 1
+            else:
+                put_file( buck_name, local_path )
+                uploaded = uploaded + 1                
+    print "New files uploaded:   " + str(uploaded)
+    print "Existed files skiped: " + str(skiped)
+    
 
-            # construct the full Dropbox path
-            #relative_path = os.path.relpath(local_path, dir_name)
-            
-            # relative_path = os.path.relpath(os.path.join(root, filename))
-
-            #print 'Searching "%s" in "%s"' % (filename, bucket)
-            #try:
-            #    client.head_object(Bucket=bucket, Key=s3_path)
-            #    print "Path found on S3! Skipping %s..." % s3_path
-
-            # try:
-                # client.delete_object(Bucket=bucket, Key=s3_path)
-            # except:
-                # print "Unable to delete %s..." % s3_path
-            #except:
-            put_file( buck_name, local_path )
-        
 def del_file( buck_name, file_name ):
     "Delete file from bucket."
     
@@ -134,14 +133,14 @@ def buck_dump_diff( buck_name, dump_path ):
     for key in buck.list():
         buck.get_key( 'key' )
         if os.path.isfile( dump_path + key.name):
-            print "Object " + key.name + " already exists in " + dump_path
+            # print "Object " + key.name + " already exists in " + dump_path
             skiped = skiped + 1
         else:
             print "Dumping " + key.name + " to " +  dump_path
             key.get_contents_to_filename( dump_path  + key.name )
             dumped = dumped + 1
-    print "Dumped new objects: " + str(dumped)
-    print "Skiped existing objects: " + str(skiped)    
+    print "New files dumped:     " + str(dumped)
+    print "Existed files skiped: " + str(skiped)    
 
 # Got from http://boto.cloudhackers.com/en/latest/s3_tut.html
 def set_rights( buck_name , file_name):
