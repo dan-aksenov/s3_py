@@ -2,6 +2,7 @@
 from s3client import s3connect, buck_dump_diff
 import sys
 from getopt import getopt
+import time
 
 def usage():
     '''Функция "Инструкция по пременению" '''
@@ -43,8 +44,10 @@ def main():
     except:
         dump_path = raw_input('Dump directory: ')
             
+    start_time =  time.time()
     s3connect( config_file )
     buck_dump_diff( buck_name, dump_path )
+    print("Backed up for %s seconds" % (time.time() - start_time))
 
 
 if __name__ == '__main__':
