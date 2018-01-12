@@ -124,12 +124,13 @@ def buck_dump_all( buck_name, dump_path ):
         buck.get_key( 'key' )
         key.get_contents_to_filename( dump_path  + key.name )
 
-def buck_dump_diff( buck_name, dump_path ):
+def buck_dump_diff_try( buck_name, dump_path ):
     "Dump new buckets only, skip existing."
 
     buck = conn.get_bucket( buck_name )
     dumped = 0
     skiped = 0
+    errors = 0
     for key in buck.list():
         buck.get_key( 'key' )
         if os.path.isfile( dump_path + key.name):
@@ -137,10 +138,14 @@ def buck_dump_diff( buck_name, dump_path ):
             skiped = skiped + 1
         else:
             print "Dumping " + key.name + " to " +  dump_path
-            key.get_contents_to_filename( dump_path  + key.name )
-            dumped = dumped + 1
+            try:
+                key.get_contents_to_filename( dump_path  + key.name )
+                dumped = dumped + 1
+            except:
+                errors = errors + 1
     print "New files dumped:     " + str(dumped)
     print "Existed files skiped: " + str(skiped)    
+    print "Errors: " + str(errors) 
 
 # Got from http://boto.cloudhackers.com/en/latest/s3_tut.html
 def set_rights( buck_name , file_name):
