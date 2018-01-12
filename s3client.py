@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-Simple python script to connect to 3s object storage.
-Creating buckets, upload/download/delete/dump files.
+Simple python script to connect to 3s object storage,
+creating buckets, uploading/downloading/deleting files.
 '''
 import boto
 import boto.s3
@@ -134,14 +134,15 @@ def buck_dump_diff( buck_name, dump_path ):
     for key in buck.list():
         buck.get_key( 'key' )
         if os.path.isfile( dump_path + key.name):
-            # print "Object " + key.name + " already exists in " + dump_path
             skiped = skiped + 1
+            # print "Object " + key.name + " already exists in " + dump_path
         else:
             try:
                 key.get_contents_to_filename( dump_path  + key.name )
-                print "Dumped " + key.name + " to " +  dump_path
                 dumped = dumped + 1
+                # print "Dumped " + key.name + " to " +  dump_path
             except:
+                # print "Error dumping " + key.name + " to " +  dump_path
                 errors = errors + 1
     print "New files dumped:     " + str(dumped)
     print "Existed files skiped: " + str(skiped)    
