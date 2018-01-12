@@ -124,7 +124,7 @@ def buck_dump_all( buck_name, dump_path ):
         buck.get_key( 'key' )
         key.get_contents_to_filename( dump_path  + key.name )
 
-def buck_dump_diff_try( buck_name, dump_path ):
+def buck_dump_diff( buck_name, dump_path ):
     "Dump new buckets only, skip existing."
 
     buck = conn.get_bucket( buck_name )
