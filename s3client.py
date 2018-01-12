@@ -142,11 +142,10 @@ def buck_dump_diff( buck_name, dump_path ):
                 print "Dumped " + key.name + " to " +  dump_path
                 dumped = dumped + 1
             except:
-                print "Error dumping " + key.name
                 errors = errors + 1
     print "New files dumped:     " + str(dumped)
     print "Existed files skiped: " + str(skiped)    
-    print "Errors: " + str(errors) 
+    print "Errors:               " + str(errors) 
 
 # Got from http://boto.cloudhackers.com/en/latest/s3_tut.html
 def set_rights( buck_name , file_name):
