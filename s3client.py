@@ -137,12 +137,12 @@ def buck_dump_diff( buck_name, dump_path ):
             # print "Object " + key.name + " already exists in " + dump_path
             skiped = skiped + 1
         else:
-            print "Dumping " + key.name + " to " +  dump_path
             try:
                 key.get_contents_to_filename( dump_path  + key.name )
+                print "Dumped " + key.name + " to " +  dump_path
                 dumped = dumped + 1
             except:
-                print "\t Error dumping " + key.name
+                print "Error dumping " + key.name
                 errors = errors + 1
     print "New files dumped:     " + str(dumped)
     print "Existed files skiped: " + str(skiped)    
