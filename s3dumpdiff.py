@@ -3,6 +3,7 @@ from s3client import s3connect, buck_dump_diff
 import sys
 from getopt import getopt
 import time
+import datetime
 
 def usage():
     '''Функция "Инструкция по пременению" '''
@@ -46,6 +47,7 @@ def main():
             
     start_time =  time.time()
     s3connect( config_file )
+    print("Dumped on " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     buck_dump_diff( buck_name, dump_path )
     print("Backed up for %s seconds" % (time.time() - start_time))
 
