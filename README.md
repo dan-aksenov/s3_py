@@ -1,4 +1,6 @@
-# s3_py
-Python 3s simple client
+# Python 3s simple client
 Various interactions with s3 storage:
-create bucket, download, updload files etc.
+- create bucket,
+- download,
+- updload files
+- etc...
