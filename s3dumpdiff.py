@@ -49,7 +49,7 @@ def main():
     s3connect( config_file )
     print("Dumped on " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
     buck_dump_diff( buck_name, dump_path )
-    print("Backed up for %s seconds" % (time.time() - start_time))
+    print("Dumped for %s seconds" % (time.time() - start_time))
 
 
 if __name__ == '__main__':
