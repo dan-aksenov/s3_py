@@ -2,6 +2,7 @@
 from s3client import s3connect, put_dir, set_rights
 import sys
 from getopt import getopt
+import time
 
 def usage():
     '''Функция "Инструкция по пременению" '''
@@ -44,11 +45,13 @@ def main():
         dump_path = raw_input('Dump directory: ')
             
     conn = s3connect( config_file )
+    start_time =  time.time()
     put_dir( buck_name, dump_path )
     print "Restoring read rights..."
     buck = conn.get_bucket(buck_name)
     for key in buck.list():
         set_rights(buck_name, key.name)
-
+    print("Uploaded for %s seconds" % (time.time() - start_time))
+    
 if __name__ == '__main__':
     main()
