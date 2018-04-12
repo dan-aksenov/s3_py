@@ -18,7 +18,7 @@ def main():
         usage()
         sys.exit(1)
 
-    # Назначение переменныч c - config file, b - bucket name, d - dump directory
+    # Назначение переменных c - config file, b - bucket name, d - dump directory
     for opt, arg in opts:
         if opt in ( '-c' ):
             config_file = arg
