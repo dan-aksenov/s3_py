@@ -132,7 +132,6 @@ def buck_dump_diff( buck_name, dump_path ):
     skiped = 0
     errors = 0
     for key in buck.list():
-        buck.get_key( 'key' )
         if os.path.isfile( dump_path + key.name):
             skiped = skiped + 1
             # print "Object " + key.name + " already exists in " + dump_path
