@@ -1,6 +1,6 @@
 {
    "gateway": "someserver",
-   "port": 7480
+   "port": 7480,
    "access_key": "acCe$s_K3y",
    "secret_key": "s@cRet_Kei"
-}	
+}
