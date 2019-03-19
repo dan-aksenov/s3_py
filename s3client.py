@@ -39,13 +39,13 @@ def s3connect( config_file ):
 def buck_list():
     "Get avaliable buckets."
     
-    print "Available buckets are:"
+    print("Available buckets are:")
     for bucket in conn.get_all_buckets():
-        print "{name} {created}".format(
+        print("{name} {created}".format(
             name=bucket.name,
             created=bucket.creation_date,
         )
-
+        )
 def buck_add( buck_name ):
     "Create bucket."
     
@@ -59,9 +59,9 @@ def put_file( buck_name, file_name ):
     "Insert file to bucket. Create bucket if not exists."
     
     buck = conn.create_bucket( buck_name )
-    print 'Uploading %s to bucket %s' % \
+    print('Uploading %s to bucket %s' % \
     (file_name, buck)
-
+    ) 
     def percent_cb(complete, total):
         "Internal 'progress bar' function. Move it higher?"
         
@@ -92,16 +92,17 @@ def put_dir( buck_name, dir_name ):
             else:
                 put_file( buck_name, local_path )
                 uploaded = uploaded + 1                
-    print "New files uploaded:   " + str(uploaded)
-    print "Existed files skiped: " + str(skiped)
+    print("New files uploaded:   " + str(uploaded))
+    print("Existed files skiped: " + str(skiped))
     
 
 def del_file( buck_name, file_name ):
     "Delete file from bucket."
     
     buck = conn.get_bucket( buck_name )
-    print 'Deleting %s from bucket %s' % \
+    print('Deleting %s from bucket %s' % \
     (file_name, buck)
+    )
     buck.delete_key(file_name)
         
 # Got from http://docs.ceph.com/docs/master/radosgw/s3/python/
@@ -110,10 +111,11 @@ def buck_cont( buck_name ):
     
     buck = conn.get_bucket( buck_name )
     for key in buck.list():
-        print "{name}\t{size}\t{modified}".format(
+        print("{name}\t{size}\t{modified}".format(
             name = key.name,
             size = key.size,
             modified = key.last_modified,
+        )
         )
 
 def buck_dump_all( buck_name, dump_path ):
@@ -143,9 +145,9 @@ def buck_dump_diff( buck_name, dump_path ):
             except:
                 # print "Error dumping " + key.name + " to " +  dump_path
                 errors = errors + 1
-    print "New files dumped:     " + str(dumped)
-    print "Existed files skiped: " + str(skiped)    
-    print "Errors:               " + str(errors) 
+    print("New files dumped:     " + str(dumped))
+    print("Existed files skiped: " + str(skiped))    
+    print("Errors:               " + str(errors)) 
 
 # Got from http://boto.cloudhackers.com/en/latest/s3_tut.html
 def set_rights( buck_name , file_name):
