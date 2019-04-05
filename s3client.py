@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Simple python script to connect to 3s object storage,
+Simple python script for connecting to 3s object storage,
 creating buckets, uploading/downloading/deleting files.
 '''
 import boto
